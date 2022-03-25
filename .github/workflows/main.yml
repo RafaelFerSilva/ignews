@@ -33,3 +33,52 @@ jobs:
           minimum-coverage: 90
           artifact-name: code-coverage-report
           github-token: ${{ secrets.TOKEN }}
+
+  e2e_test:
+    name: Executar testes e2e
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Realizar checkout no repositório dos tests
+        uses: actions/checkout@v2
+
+      - name: Instalar Chrome
+        uses: browser-actions/setup-chrome@latest
+
+      - run: (Get-Item (Get-Command chrome).Source).VersionInfo.ProductVersion
+
+      - uses: nanasess/setup-chromedriver@master
+      - run: chromedriver --url-base=/wd/hub &
+
+      - name: Criar a pasta de reports
+        run: |
+          cd ${{ github.workspace }}/
+          mkdir reports
+          
+      - name: Instalar as dependências do Robot Framework
+        run: |
+          cd ${{ github.workspace }}/
+          pip install -r requirements.txt
+      - name: Executar os tests e2e
+        run: robot  --variable BROWSER:"headlesschrome" --outputdir ${{ github.workspace }}/reports --loglevel TRACE --pythonpath ./resources --exclude known_issue --exclude skip  ${{ github.workspace }}/tests
+
+      - name: Upload test reports
+        uses: actions/upload-artifact@v1
+        continue-on-error: true
+        if: always()
+        with:
+          name: reports
+          path: ${{ github.workspace }}/reports
+
+      - name: Comment E2E - PR Informations
+        uses: mshick/add-pr-comment@v1
+        with:
+          message: |
+            **E2E - PR Informations**
+            **PR Owner and repository:** ${{ github.repository }}
+            **PR branch:** ${{ github.head_ref }}
+            **Checkout Robot branch:** ${{ env.branch }}
+          repo-token: ${{ secrets.TOKEN }}
+          repo-token-user-login: 'github-actions[bot]'
+          allow-repeats: true
+
