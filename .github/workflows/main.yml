@@ -54,12 +54,10 @@ jobs:
 
       - name: Criar a pasta de reports
         run: |
-          cd ${{ github.workspace }}/
           mkdir reports
           
       - name: Instalar as dependências do Robot Framework
         run: |
-          cd ${{ github.workspace }}/
           pip install -r requirements.txt
       - name: Executar os tests e2e
         run: robot  --variable BROWSER:"headlesschrome" --outputdir ${{ github.workspace }}/reports --loglevel TRACE --pythonpath ./resources --exclude known_issue --exclude skip  ${{ github.workspace }}/tests
