@@ -26,10 +26,10 @@ jobs:
           github-token: ${{ secrets.TOKEN }}
           lcov-file: ./coverage/lcov.info
 
-      - name: Monitor coverage
-        uses: slavcodev/coverage-monitor-action@1.2.0
+      - name: Report code coverage
+        uses: zgosalvez/github-actions-report-lcov@v1
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          clover_file: 'coverage/clover.xml'
-          threshold_alert: 85
-          threshold_warning: 80
+          coverage-files: ./coverage/lcov.info
+          minimum-coverage: 90
+          artifact-name: code-coverage-report
+          github-token: ${{ secrets.TOKEN }}
