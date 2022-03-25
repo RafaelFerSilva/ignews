@@ -42,8 +42,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: RafaelFerSilva/automacao_site_automation_pratice
-          path: ${{ github.workspace }}
-          ref: ${{ github.head_ref }}
+          path: automacao_site_automation_pratice
 
       - name: Instalar Chrome
         uses: browser-actions/setup-chrome@latest
@@ -55,15 +54,15 @@ jobs:
 
       - name: Criar a pasta de reports
         run: |
-          cd ${{ github.workspace }}/
+          cd automacao_site_automation_pratice/
           mkdir reports
           
       - name: Instalar as dependências do Robot Framework
         run: |
-          cd ${{ github.workspace }}/
+          cd automacao_site_automation_pratice/
           pip install -r requirements.txt
       - name: Executar os tests e2e
-        run: robot  --variable BROWSER:"headlesschrome" --outputdir ${{ github.workspace }}/reports --loglevel TRACE --pythonpath ./resources --exclude known_issue --exclude skip  ${{ github.workspace }}/tests
+        run: robot  --variable BROWSER:"headlesschrome" --outputdir ./automacao_site_automation_pratice/reports --loglevel TRACE --pythonpath ./resources --exclude known_issue --exclude skip  ./automacao_site_automation_pratice/tests
 
       - name: Upload test reports
         uses: actions/upload-artifact@v1
@@ -71,7 +70,7 @@ jobs:
         if: always()
         with:
           name: reports
-          path: ${{ github.workspace }}/reports
+          path: automacao_site_automation_pratice/reports
 
       - name: Comment E2E - PR Informations
         uses: mshick/add-pr-comment@v1
