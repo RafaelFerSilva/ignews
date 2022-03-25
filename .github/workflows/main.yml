@@ -24,6 +24,14 @@ jobs:
         with:
           github-token: ${{ secrets.TOKEN }}
           lcov-file: ./coverage/lcov.info
+      
+      - name: Upload test reports
+        uses: actions/upload-artifact@v1
+        continue-on-error: true
+        if: always()
+        with:
+          name: coverage
+          path: ./coverage/lcov.info
 
   coverage:
     name: Code coverage
