@@ -62,7 +62,7 @@ jobs:
           cd automacao_site_automation_pratice/
           pip install -r requirements.txt
       - name: Executar os tests e2e
-        run: robot  --variable BROWSER:"headlesschrome" --outputdir ./automacao_site_automation_pratice/reports --loglevel TRACE --pythonpath ./resources --exclude known_issue --exclude skip  ./automacao_site_automation_pratice/tests
+        run: robot  --variable BROWSER:"headlesschrome" --outputdir ./automacao_site_automation_pratice/reports --loglevel TRACE --pythonpath ./automacao_site_automation_pratice/resources --exclude known_issue --exclude skip  ./automacao_site_automation_pratice/tests
 
       - name: Upload test reports
         uses: actions/upload-artifact@v1
@@ -71,16 +71,4 @@ jobs:
         with:
           name: reports
           path: automacao_site_automation_pratice/reports
-
-      - name: Comment E2E - PR Informations
-        uses: mshick/add-pr-comment@v1
-        with:
-          message: |
-            **E2E - PR Informations**
-            **PR Owner and repository:** ${{ github.repository }}
-            **PR branch:** ${{ github.head_ref }}
-            **Checkout Robot branch:** ${{ env.branch }}
-          repo-token: ${{ secrets.TOKEN }}
-          repo-token-user-login: 'github-actions[bot]'
-          allow-repeats: true
 
