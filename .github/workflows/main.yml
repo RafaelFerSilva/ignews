@@ -12,8 +12,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
-
+        uses: actions/checkout@v3
 
       - name: Install Dependencies
         run: yarn install
@@ -39,13 +38,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Realizar checkout no repositório dos tests
-        uses: actions/checkout@v2
+      - name: Checkout tools repo
+        uses: actions/checkout@v3
+        with:
+          repository: RafaelFerSilva/automacao_site_automation_pratice
+          path: automacao_site_automation_pratice
 
       - name: Instalar Chrome
         uses: browser-actions/setup-chrome@latest
 
-      - run: (Get-Item (Get-Command chrome).Source).VersionInfo.ProductVersion
+      # - run: (Get-Item (Get-Command chrome).Source).VersionInfo.ProductVersion
 
       - uses: nanasess/setup-chromedriver@master
       - run: chromedriver --url-base=/wd/hub &
