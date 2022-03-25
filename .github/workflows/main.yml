@@ -39,10 +39,11 @@ jobs:
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
         with:
           repository: RafaelFerSilva/automacao_site_automation_pratice
-          path: automacao_site_automation_pratice
+          path: ${{ github.workspace }}
+          ref: ${{ github.head_ref }}
 
       - name: Instalar Chrome
         uses: browser-actions/setup-chrome@latest
