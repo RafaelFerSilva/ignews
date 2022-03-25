@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       - name: Install Dependencies
         run: yarn install
@@ -39,7 +39,7 @@ jobs:
 
     steps:
       - name: Checkout tools repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
         with:
           repository: RafaelFerSilva/automacao_site_automation_pratice
           path: automacao_site_automation_pratice
