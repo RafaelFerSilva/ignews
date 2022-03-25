@@ -18,10 +18,10 @@ jobs:
       - name: Install Dependencies
         run: yarn install
 
+      - name: Run Unit Tests
+        run: yarn test
+
       - uses: romeovs/lcov-reporter-action@v0.2.16
         with:
           github-token: ${{ secrets.TOKEN }}
           lcov-file: ./coverage/lcov.info
-
-      - name: Run Unit Tests
-        run: yarn test
