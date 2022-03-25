@@ -1,0 +1,27 @@
+name: CI Tests
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  unit:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+
+      - name: Install Dependencies
+        run: yarn install
+
+      - uses: romeovs/lcov-reporter-action@v0.2.16
+        with:
+          github-token: ${{ secrets.TOKEN }}
+          lcov-file: ./coverage/lcov.info
+
+      - name: Run Unit Tests
+        run: yarn test
