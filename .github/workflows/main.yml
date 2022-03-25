@@ -38,8 +38,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout tools repo
-        uses: actions/checkout@v3
+      - name: Checkout repo
+        uses: actions/checkout@v2
         with:
           repository: RafaelFerSilva/automacao_site_automation_pratice
           path: automacao_site_automation_pratice
